@@ -26,12 +26,20 @@ def _load_model(model_name):
     found_keys = set(model_state.keys())
 
     missing_essential_keys = []
-    for missing_key in expected_keys - found_keys:
+    # due to old/new torch 
+    missing_exception = {
+        'trunk.structure_module.ipa.linear_q_points.linear.bias',
+        'trunk.structure_module.ipa.linear_kv_points.linear.bias',
+        'trunk.structure_module.ipa.linear_kv_points.linear.weight',
+        'trunk.structure_module.ipa.linear_q_points.linear.weight'}
+
+    for missing_key in expected_keys - found_keys - missing_exception:
         if not missing_key.startswith("esm."):
             missing_essential_keys.append(missing_key)
 
     if missing_essential_keys:
         raise RuntimeError(f"Keys '{', '.join(missing_essential_keys)}' are missing.")
+        print(f"Keys '{', '.join(missing_essential_keys)}' are missing.  Ignored.")
 
     model.load_state_dict(model_state, strict=False)
 
