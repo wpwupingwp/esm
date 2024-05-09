@@ -3,7 +3,7 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 import typing as T
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from functools import partial
 
 import torch
@@ -27,7 +27,7 @@ from openfold.utils.loss import compute_predicted_aligned_error, compute_tm
 
 @dataclass
 class ESMFoldConfig:
-    trunk: T.Any = FoldingTrunkConfig()
+    trunk: T.Any = field(default_factory=FoldingTrunkConfig)
     lddt_head_hid_dim: int = 128
 
 
