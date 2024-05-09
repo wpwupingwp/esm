@@ -11,12 +11,6 @@ exclude = '''
 )/
 '''
 
-[tool.pdm.package-dir]
-esm = "esm"
-"esm.model" = "esm/model"
-"esm.inverse_folding" = "esm/inverse_folding"
-"esm.esmfold.v1" = "esm/esmfold/v1"
-"esm.scripts" = "scripts"
 
 [project]
 name = "fair-esm"
@@ -28,26 +22,22 @@ authors = [
 ]
 license = {text = "MIT"}
 requires-python = ">=3.11"
+dependencies = ["biopython", "deepspeed", "dllogger", "dm-tree", "einops", "matplotlib", "ml-collections", "modelcif", "omegaconf", "openfold", "pytorch-lightning", "scipy"]
 
 [project.urls]
 Homepage = "https://github.com/facebookresearch/esm"
-
-[project.optional-dependencies]
-esmfold = [
-    "biopython",
-    "deepspeed",
-    "dm-tree",
-    "einops",
-    "ml-collections",
-    "omegaconf",
-    "pytorch-lightning",
-    "scipy",
-]
 
 [project.scripts]
 esm-extract = "esm.scripts.extract:main"
 esm-fold = "esm.scripts.fold:main"
 
 [build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
+requires = ['setuptools']
+build-backend = "setuptools.build_meta"
+
+[tool.pdm.package-dir]
+esm = "esm"
+"esm.model" = "esm/model"
+"esm.inverse_folding" = "esm/inverse_folding"
+"esm.esmfold.v1" = "esm/esmfold/v1"
+"esm.scripts" = "scripts"
